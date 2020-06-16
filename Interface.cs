@@ -22,24 +22,20 @@ interface IMoveableItem
     /// <summary>
     /// 按下G键向人物前方投掷手中物品
     /// </summary>
-    /// <param name="InHand">手中是否有物品</param>
-    void ThrowItem(bool InHand);
+    /// <param name="inHand">手中是否有物品</param>
+    void ThrowItem(bool inHand);
 
     /// <summary>
     /// 将道具显示在手上
     /// </summary>
-    /// <param name="InHand">手中是否有物品</param>
-    void ShowItemInHand(bool InHand);
+    /// <param name="inHand">手中是否有物品</param>
+    void ShowItemInHand(bool inHand);
 
     /// <summary>
     /// 按下E键拾取物品
     /// </summary>
     void PickUpItem(GameObject role);
 
-    /// <summary>
-    /// 当玩家靠近物品时显示按键UI
-    /// </summary>
-    void ShowInfo();
 }
 /// <summary>
 /// 永久性获得道具 可以通过菜单使用
@@ -60,10 +56,6 @@ interface ITool
     /// </summary>
     void UnUse();
 
-    /// <summary>
-    /// 当玩家靠近物品时显示按键UI 
-    /// </summary>
-    void ShowInfo();
 }
 /// <summary>
 /// 如可开关门，可开关柜子之类的物品
@@ -73,8 +65,8 @@ interface IChangeableItem
     /// <summary>
     /// 对按键E进行相应的操作
     /// </summary>
-    /// <param name="InHandItem">若玩家手中有对应的道具（钥匙）就可以打开锁上的房门</param>
-    void InterAct(GameObject InHandItem);
+    /// <param name="inHandItem">若玩家手中有对应的道具（钥匙）就可以打开锁上的房门</param>
+    void Interact(GameObject inHandItem);
 }
 /*interface IPlayerHeartBeatSound
 {
