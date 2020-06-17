@@ -5,7 +5,7 @@ using UnityEngine;
 interface IPlayer
 {
     /// <summary>
-    /// 射线检测 Item layer层。
+    /// 射线检测 Item tag层。
     /// </summary>
     void AxisAnalysis();//gameObject.interact(player)
 }
@@ -45,7 +45,7 @@ interface ITool
     /// <summary>
     /// 按下E键拾取物品
     /// </summary>
-    void PickUpItem();
+    Tool PickUpItem();
 
     /// <summary>
     /// 使用这个物品

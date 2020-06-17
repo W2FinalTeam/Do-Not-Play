@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveableItem : BaseItem, IMoveableItem
+public class AlarmItem : BaseItem,IAlarmItem
 {
-    private bool inHand;
-    private GameObject role;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +18,6 @@ public class MoveableItem : BaseItem, IMoveableItem
     protected override void Init()
     {
         myTransform = this.transform;
-        inHand = false;
-        role = null;
     }
     protected override void Destory()
     {
@@ -30,12 +25,5 @@ public class MoveableItem : BaseItem, IMoveableItem
     }
     protected override void ShowInfo()
     {
-    }
-    public void Interact(GameObject target)
-    {
-        role = target;
-        inHand = true;
-        PickUpItem(role);
-        ShowItemInHand(inHand);
     }
 }
