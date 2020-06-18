@@ -31,11 +31,4 @@ public class MoveableItem : BaseItem, IMoveableItem
     protected override void ShowInfo()
     {
     }
-    public void Interact(GameObject target)
-    {
-        role = target;
-        inHand = true;
-        PickUpItem(role);
-        ShowItemInHand(inHand);
-    }
 }

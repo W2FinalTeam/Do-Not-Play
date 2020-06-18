@@ -10,13 +10,15 @@ public class Player : MonoBehaviour, IPlayer
     public List<Tool> ItemList;
     //在手中的物品
     public GameObject inHandItem = null;
-
+    //被射线检测到的物体
+    public GameObject targetItem;
     private void Start()
     {
 
     }
     private void Update()
     {
+        AxisAnalysis();
         KeyEvent();
     }
     public void AxisAnalysis()
@@ -25,28 +27,32 @@ public class Player : MonoBehaviour, IPlayer
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, reachRange))
         {
-            if (hit.transform.tag == "MoveableItem")
-            {
-                hit.transform.GetComponent<MoveableItem>().Interact(this.gameObject);
-                inHandItem = hit.collider.gameObject;
-                return;
-            }
-            if (hit.transform.tag == "Tool")
-            {
-                ItemList.Add(hit.transform.GetComponent<Tool>().PickUpItem());
-                return;
-            }
-            if (hit.transform.tag == "ChangeableItem")
-            {
-                hit.transform.GetComponent<ChangeableItem>().Interact();
-                return;
-            }
+            targetItem = hit.collider.gameObject;
         }
+        else
+            targetItem = null;
     }
     private void KeyEvent()
     {
         if (Input.GetKeyDown(KeyCode.E))
-            AxisAnalysis();
+        {
+            if (targetItem.tag == "MoveableItem" && inHandItem == null)
+            {
+                targetItem.GetComponent<MoveableItem>().PickUpItem();
+                inHandItem = targetItem;
+                return;
+            }
+            if (targetItem.tag == "Tool")
+            {
+                ItemList.Add(targetItem.GetComponent<Tool>().PickUpItem());
+                return;
+            }
+            if (targetItem.tag == "ChangeableItem")
+            {
+                targetItem.GetComponent<ChangeableItem>().Interact();
+                return;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.G) && inHandItem != null)
         {
             inHandItem.GetComponent<MoveableItem>().ThrowItem();
