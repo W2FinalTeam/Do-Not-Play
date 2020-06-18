@@ -23,7 +23,4 @@ public class AlarmItem : BaseItem,IAlarmItem
     {
         Destroy(gameObject);
     }
-    protected override void ShowInfo()
-    {
-    }
 }

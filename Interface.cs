@@ -22,17 +22,11 @@ interface IMoveableItem
     /// <summary>
     /// 按下G键向人物前方投掷手中物品
     /// </summary>
-    /// <param name="inHand">手中是否有物品</param>
+    /// <param name="inHand">手中是否有物品,这个参数是该类的数据成员</param>
     void ThrowItem(bool inHand);
 
     /// <summary>
-    /// 将道具显示在手上
-    /// </summary>
-    /// <param name="inHand">手中是否有物品</param>
-    void ShowItemInHand(bool inHand);
-
-    /// <summary>
-    /// 按下E键拾取物品
+    /// 按下E键拾取物品，将物品显示到人物右手上
     /// </summary>
     void PickUpItem(GameObject role);
 

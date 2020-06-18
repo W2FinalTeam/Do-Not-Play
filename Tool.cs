@@ -24,7 +24,4 @@ public class Tool : BaseItem, ITool
     {
         Destroy(gameObject);
     }
-    protected override void ShowInfo()
-    {
-    }
 }
