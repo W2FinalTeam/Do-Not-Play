@@ -15,10 +15,4 @@ public abstract class BaseItem : MonoBehaviour
     /// 摧毁道具
     /// </summary>
     protected abstract void Destory();
-
-    /// <summary>
-    /// 当玩家靠近物品时显示按键UI
-    /// </summary>
-    protected abstract void ShowInfo();
-
 }

@@ -28,7 +28,4 @@ public class MoveableItem : BaseItem, IMoveableItem
     {
         Destroy(gameObject);
     }
-    protected override void ShowInfo()
-    {
-    }
 }

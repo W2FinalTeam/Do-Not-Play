@@ -38,7 +38,7 @@ public class Player : MonoBehaviour, IPlayer
         {
             if (targetItem.tag == "MoveableItem" && inHandItem == null)
             {
-                targetItem.GetComponent<MoveableItem>().PickUpItem();
+                targetItem.GetComponent<MoveableItem>().PickUpItem(this.gameObject);
                 inHandItem = targetItem;
                 return;
             }

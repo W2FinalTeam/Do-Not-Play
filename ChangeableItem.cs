@@ -24,7 +24,4 @@ public class ChangeableItem : BaseItem, IChangeableItem
     {
         Destroy(gameObject);
     }
-    protected override void ShowInfo()
-    {
-    }
 }
