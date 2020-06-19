@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class MoveableItem : BaseItem, IMoveableItem
 {
+    private Transform HandLocation;
     private bool inHand;
     private GameObject role;
+    public GameObject rightHandPositon;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,40 @@ public class MoveableItem : BaseItem, IMoveableItem
     }
     protected override void Destory()
     {
-        Destroy(gameObject);
+        Destroy(this.gameObject);
+    }
+    protected override void ShowInfo()
+    {
+    }
+    public void Interact(GameObject target)
+    {
+        role = target;
+        inHand = true;
+        PickUpItem(role);
+    }
+
+    public void PlayDropSound()
+    {
+            
+    }
+
+    public void ThrowItem(bool inHand)
+    {
+        
+    }
+    //负责实现-拾取物品将物品展示在手上
+    public void PickUpItem(GameObject role)
+    {
+        if (role.tag == "Child")
+        {
+            this.gameObject.transform.position = rightHandPositon.transform.position;
+            this.transform.parent = role.transform;
+        }
+
+        if (role.tag == "Mother" || role.tag == "Father")
+        {
+            //--------
+        }
+
     }
 }
