@@ -22,8 +22,7 @@ interface IMoveableItem
     /// <summary>
     /// 按下G键向人物前方投掷手中物品
     /// </summary>
-    /// <param name="inHand">手中是否有物品,这个参数是该类的数据成员</param>
-    void ThrowItem(bool inHand);
+    void ThrowItem();
 
     /// <summary>
     /// 按下E键拾取物品，将物品显示到人物右手上
@@ -59,8 +58,7 @@ interface IChangeableItem
     /// <summary>
     /// 对按键E进行相应的操作
     /// </summary>
-    /// <param name="inHandItem">若玩家手中有对应的道具（钥匙）就可以打开锁上的房门</param>
-    void Interact(GameObject inHandItem);
+    void Interact();
 }
 /*interface IPlayerHeartBeatSound
 {

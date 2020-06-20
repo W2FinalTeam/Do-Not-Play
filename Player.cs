@@ -7,14 +7,13 @@ public class Player : MonoBehaviour, IPlayer
     //可拾取距离
     public float reachRange;
     //存储永久性获得道具
-    public List<Tool> ItemList;
+    static public List<GameObject> ItemList;
     //在手中的物品
     public GameObject inHandItem = null;
     //被射线检测到的物体
     public GameObject targetItem;
     private void Start()
     {
-
     }
     private void Update()
     {
@@ -44,7 +43,8 @@ public class Player : MonoBehaviour, IPlayer
             }
             if (targetItem.tag == "Tool")
             {
-                ItemList.Add(targetItem.GetComponent<Tool>().PickUpItem());
+                targetItem.GetComponent<Tool>().PickUpItem();
+                ItemList.Add(targetItem);
                 return;
             }
             if (targetItem.tag == "ChangeableItem")
