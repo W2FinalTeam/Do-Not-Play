@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveableItem : BaseItem, IMoveableItem
 {
-    private Transform rightHandLocation;
+    public Transform rightHandLocation;
     private bool inHand;
     private GameObject role;
     private AudioSource audio;
