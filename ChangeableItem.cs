@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ChangeableItem : BaseItem, IChangeableItem
 {
- 
     // Start is called before the first frame update
     void Start()
     {
-        Init();
+        
     }
 
     // Update is called once per frame
@@ -18,10 +17,21 @@ public class ChangeableItem : BaseItem, IChangeableItem
     }
     protected override void Init()
     {
-        myTransform = this.transform;
+
     }
+    /// <summary>
+    /// 摧毁道具
+    /// </summary>
     protected override void Destory()
     {
-        Destroy(gameObject);
+
     }
+   public void InterAct(GameObject target) //
+    {
+       if( target.tag == "Key")
+        {
+            target.GetComponent<Key>().OpenDoor();
+        }
+    }
+   
 }
