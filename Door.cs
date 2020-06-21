@@ -6,6 +6,7 @@ using System;
 public class Door : ChangeableItem
 {
     public GameObject key;
+    private JointMotor joint;
     private bool isOpen;
     private bool isUnLock;
     void Start()
@@ -13,6 +14,8 @@ public class Door : ChangeableItem
         Init();
         isOpen = false;
         isUnLock = false;
+
+        joint.force = 20;
     }
 
 
@@ -29,20 +32,17 @@ public class Door : ChangeableItem
         }
         if (isUnLock)
         {
-            Vector3 force = transform.forward * 1000f * (isOpen == true ? 1 : -1);
-            this.GetComponent<Rigidbody>().AddForce(force, ForceMode.Acceleration);
+            joint.targetVelocity = isOpen == true ? -100 : 100;
             isOpen = !isOpen;
+            gameObject.GetComponent<HingeJoint>().motor = joint;
         }
+        
     }
     private void UnLock()
     {
-        foreach (GameObject temp in Player.ItemList)
+        if (key == null || Player.ItemList.Equals(key))
         {
-            if (temp == key)
-            {
-                isUnLock = true;
-                return;
-            }
+            isUnLock = true;
         }
     }
 }
