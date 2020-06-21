@@ -25,3 +25,4 @@ public abstract class ChangeableItem : BaseItem, IChangeableItem
     }
     public abstract void Interact();
 }
+

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,8 +44,8 @@ public class MoveableItem : BaseItem, IMoveableItem
         this.transform.SetParent(null);
         //让物品接受物理事件
         this.GetComponent<Rigidbody>().isKinematic = false;
-        //运用TransformDirection()方法获取一个方向
-        Vector3 camDirct = transform.TransformDirection(0, 3, 3);
+        //获取主角方向
+        Vector3 camDirct = Camera.main.ScreenPointToRay(Input.mousePosition).direction;
         //为物品添加一个向前的冲量
         this.GetComponent<Rigidbody>().AddForce(camDirct, ForceMode.Impulse);
         Invoke("PlayDropSound", 0.8f);
@@ -57,13 +57,12 @@ public class MoveableItem : BaseItem, IMoveableItem
         inHand = true;
         if (role.CompareTag("Child"))
         {
+            this.GetComponent<Rigidbody>().isKinematic = true;
             transform.position = rightHandLocation.position;
             transform.rotation = rightHandLocation.rotation;
             transform.parent = role.transform;
-            Debug.Log("hh");
         }
-
-        if (role.CompareTag("Mother") || role.CompareTag("Father"))
+        else if (role.CompareTag("Mother") || role.CompareTag("Father"))
         {
             //--------
         }

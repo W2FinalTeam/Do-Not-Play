@@ -14,7 +14,7 @@ abstract class Tool : BaseItem//, ITool
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     protected override void Init()
     {
