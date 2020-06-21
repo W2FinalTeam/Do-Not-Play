@@ -46,7 +46,7 @@ public class MoveableItem : BaseItem, IMoveableItem
         //让物品接受物理事件
         this.GetComponent<Rigidbody>().isKinematic = false;
         //运用TransformDirection()方法获取一个方向
-        Vector3 camDirct = transform.TransformDirection(0, 3, 3);
+        Vector3 camDirct = Camera.main.ScreenPointToRay(Input.mousePosition).direction;
         //为物品添加一个向前的冲量
         this.GetComponent<Rigidbody>().AddForce(camDirct, ForceMode.Impulse);
         clip.enabled = true;
