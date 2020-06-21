@@ -37,20 +37,19 @@ public class Player : MonoBehaviour, IPlayer
             return;
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (targetItem.tag == "MoveableItem" && inHandItem == null)
+            if (targetItem.CompareTag("MoveableItem") && inHandItem == null)
             {
                 targetItem.GetComponent<MoveableItem>().PickUpItem(this.gameObject);
                 inHandItem = targetItem;
-                Debug.Log("sad");
                 return;
             }
-            if (targetItem.tag == "Tool")
+            if (targetItem.CompareTag("Tool"))
             {
                 targetItem.GetComponent<Tool>().PickUpItem();
                 ItemList.Add(targetItem);
                 return;
             }
-            if (targetItem.tag == "ChangeableItem")
+            if (targetItem.CompareTag("ChangeableItem"))
             {
                 targetItem.GetComponent<ChangeableItem>().Interact();
                 return;
