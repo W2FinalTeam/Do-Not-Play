@@ -55,7 +55,7 @@ public class MoveableItem : BaseItem, IMoveableItem
     {
         this.role = role;
         inHand = true;
-        if (role.CompareTag("Child"))
+        if (role.CompareTag("Player"))
         {
             this.GetComponent<Rigidbody>().isKinematic = true;
             transform.position = rightHandLocation.position;

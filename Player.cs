@@ -33,12 +33,15 @@ public class Player : MonoBehaviour, IPlayer
     }
     private void KeyEvent()
     {
+        if (targetItem == null)
+            return;
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (targetItem.tag == "MoveableItem" && inHandItem == null)
             {
                 targetItem.GetComponent<MoveableItem>().PickUpItem(this.gameObject);
                 inHandItem = targetItem;
+                Debug.Log("sad");
                 return;
             }
             if (targetItem.tag == "Tool")
