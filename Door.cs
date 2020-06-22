@@ -16,6 +16,7 @@ public class Door : ChangeableItem
         isUnLock = false;
 
         joint.force = 20;
+      
     }
 
 
@@ -32,10 +33,13 @@ public class Door : ChangeableItem
         }
         if (isUnLock)
         {
-            joint.targetVelocity = isOpen == true ? 100 : -100;
+            joint.targetVelocity = isOpen == true ? -100 : 100;
             isOpen = !isOpen;
+
             gameObject.GetComponent<HingeJoint>().motor = joint;
+
         }
+
     }
     private void UnLock()
     {
@@ -43,15 +47,16 @@ public class Door : ChangeableItem
         {
             isUnLock = true;
             return;
+         
         }
-        foreach(GameObject gameObject in key)
+        foreach (GameObject gameObject in key)
         {
-            if (!Player.ItemList.Equals(gameObject))
+            if (Player.ItemList.Contains(gameObject))
             {
-                isUnLock = false;
+                isUnLock = true;
                 return;
             }
         }
-        isUnLock = true;
+       
     }
 }
