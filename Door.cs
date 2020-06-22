@@ -5,7 +5,7 @@ using System;
 
 public class Door : ChangeableItem
 {
-    public GameObject key;
+    public GameObject[] key;
     private JointMotor joint;
     private bool isOpen;
     private bool isUnLock;
@@ -32,17 +32,26 @@ public class Door : ChangeableItem
         }
         if (isUnLock)
         {
-            joint.targetVelocity = isOpen == true ? -100 : 100;
+            joint.targetVelocity = isOpen == true ? 100 : -100;
             isOpen = !isOpen;
             gameObject.GetComponent<HingeJoint>().motor = joint;
         }
-        
     }
     private void UnLock()
     {
-        if (key == null || Player.ItemList.Equals(key))
+        if (key == null )
         {
             isUnLock = true;
+            return;
         }
+        foreach(GameObject gameObject in key)
+        {
+            if (!Player.ItemList.Equals(gameObject))
+            {
+                isUnLock = false;
+                return;
+            }
+        }
+        isUnLock = true;
     }
 }

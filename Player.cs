@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IPlayer
+public class Player : MonoBehaviour
 {
     //可拾取距离
     public float reachRange;
@@ -12,24 +12,39 @@ public class Player : MonoBehaviour, IPlayer
     public GameObject inHandItem = null;
     //被射线检测到的物体
     public GameObject targetItem;
+    //GUI
+    private bool showInteractMsg;
+    private GUIStyle guiStyle;
+    private string msg;
+
     private void Start()
     {
+        setupGui();
     }
     private void Update()
     {
         AxisAnalysis();
         KeyEvent();
     }
-    public void AxisAnalysis()
+    private void AxisAnalysis()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, reachRange))
         {
             targetItem = hit.collider.gameObject;
+            if (targetItem.GetComponent<BaseItem>() != null)
+            {
+                showInteractMsg = true;
+            }
+            else
+                showInteractMsg = false;
         }
         else
+        {
             targetItem = null;
+            showInteractMsg = false;
+        }  
     }
     private void KeyEvent()
     {
@@ -61,5 +76,23 @@ public class Player : MonoBehaviour, IPlayer
             inHandItem = null;
         }
     }
+    #region GUI Config
+    private void setupGui()
+    {
+        guiStyle = new GUIStyle();
+        guiStyle.fontSize = 16;
+        guiStyle.fontStyle = FontStyle.Bold;
+        guiStyle.normal.textColor = Color.white;
+        msg = "Press E";
+    }
+    void OnGUI()
+    {
+        if (showInteractMsg)  //show on-screen prompts to user for guide.
+        {
+            GUI.Label(new Rect(50, Screen.height - 50, 200, 50), msg, guiStyle);
+        }
+    }
+    //End of GUI Config --------------
+    #endregion
 }
 
