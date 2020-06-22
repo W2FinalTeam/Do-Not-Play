@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class Tool : BaseItem//, ITool
+public abstract class Tool : BaseItem, ITool
 {
+    public bool isusing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +15,7 @@ abstract class Tool : BaseItem//, ITool
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     protected override void Init()
     {
@@ -25,14 +26,9 @@ abstract class Tool : BaseItem//, ITool
         Destroy(gameObject);
     }
 
-    public void PickUpItem()
-    {
-        transform.localScale = Vector3.zero;
-    }
+    public abstract GameObject PickUpItem(Transform parent);
+
 
     public abstract void Use();
-
-
     public abstract void UnUse();
-
 }

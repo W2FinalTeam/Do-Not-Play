@@ -37,7 +37,7 @@ interface ITool
     /// <summary>
     /// 按下E键拾取物品
     /// </summary>
-    Tool PickUpItem();
+    GameObject PickUpItem(Transform parent);
 
     /// <summary>
     /// 使用这个物品
