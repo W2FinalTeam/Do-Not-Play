@@ -54,7 +54,7 @@ public class Door : ChangeableItem
         }
         foreach (GameObject gameObject in key)
         {
-            if (!player.ItemList.Equals(gameObject))
+            if (!player.GetComponent<Player>().ItemList.Contains(gameObject))
             {
                 isUnLock = false;
                 return;
