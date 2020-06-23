@@ -6,7 +6,6 @@ public class PasswordLock : ChangeableItem
 {
     public GameObject LockUI;
     public string passWord;
-    private string mine;
     private InputField inputField;
     private bool isUnLock = false;
     private bool isOpen = false;
@@ -33,10 +32,8 @@ public class PasswordLock : ChangeableItem
     {
         if (isUnLock)
         {
-            bool isOpen = anim.GetBool(animBoolName);
-
             anim.enabled = true;
-            anim.SetBool(animBoolName, !isOpen);
+            anim.SetBool(animBoolName, !anim.GetBool(animBoolName));
             return;
         }
         LockUI.SetActive(!isOpen);
