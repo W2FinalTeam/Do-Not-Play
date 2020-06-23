@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameManager GameManager;
     //可拾取距离
     public float reachRange;
     //存储永久性获得道具
-    static public List<GameObject> ItemList;
+    public List<GameObject> ItemList;
     //在手中的物品
     public GameObject inHandItem = null;
     //被射线检测到的物体
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         setupGui();
     }
     private void Update()
@@ -60,8 +62,8 @@ public class Player : MonoBehaviour
             }
             if (targetItem.CompareTag("Tool"))
             {
-                targetItem.GetComponent<Tool>().PickUpItem();
-                ItemList.Add(targetItem);
+                ItemList.Add(targetItem.GetComponent<Tool>().PickUpItem(this.transform));
+                GameManager.SetTool(targetItem.name, targetItem);
                 return;
             }
             if (targetItem.CompareTag("ChangeableItem"))

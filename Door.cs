@@ -9,16 +9,20 @@ public class Door : ChangeableItem
     private JointMotor joint;
     private bool isOpen;
     private bool isUnLock;
+    private GameObject player;
     void Start()
     {
         Init();
+        player = GameObject.FindWithTag("Player");
+    }
+    protected override void Init()
+    {
+        myTransform = this.transform;
         isOpen = false;
         isUnLock = false;
 
         joint.force = 20;
-      
     }
-
 
     // Update is called once per frame
     void Update()
@@ -47,16 +51,15 @@ public class Door : ChangeableItem
         {
             isUnLock = true;
             return;
-         
         }
         foreach (GameObject gameObject in key)
         {
-            if (Player.ItemList.Contains(gameObject))
+            if (!player.ItemList.Equals(gameObject))
             {
-                isUnLock = true;
+                isUnLock = false;
                 return;
             }
         }
-       
+        isUnLock = true;
     }
 }
