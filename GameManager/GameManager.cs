@@ -166,7 +166,6 @@ public class GameManager : MonoBehaviour
     }
     bool TaskCheck()
     {
-        
         foreach(var item in task)
         {
             if (!item.Value)

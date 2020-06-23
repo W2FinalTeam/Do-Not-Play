@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     //可拾取距离
     public float reachRange;
     //存储永久性获得道具
-    public List<GameObject> ItemList;
+    public List<GameObject> ItemList = new List<GameObject>();
     //在手中的物品
     public GameObject inHandItem = null;
     //被射线检测到的物体
