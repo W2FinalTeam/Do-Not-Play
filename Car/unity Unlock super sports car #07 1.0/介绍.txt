@@ -1,0 +1,49 @@
+unity3D汽车内饰细节与外表模型Unlock super sports car #07 1.0
+
+
+所支持的Unity版本：2017.2.0或更高
+(并不是所有高版全部都兼容的,具体以unity官网为准,这里的支持版本是复制unity官网的,并不准确,大家自行测试)
+
+Midpoly Unlock super car.
+- Model is correctly divided into main part, hight detailed interior, low detailed interior, steering wheel and wheels.
+- Completely unwrapped and textured.
+- Professional, clear geometry.
+- All materials, textures and other parts of pack properly named.
+- Scripts for Interior car needles, info screens and driver steering.
+- Main color customizable in real time.
+- Multiple skins.
+
+Thanks and do not forget to rate.
+Please remember to rate our packages, we will bring more quality models soon.
+We hope you will like this new car.
+
+Good luck.
+百度翻译：
+
+Midpoly解锁超级跑车。
+
+-模型分为主体部分、高细节内饰、低细节内饰、方向盘和车轮。
+
+-完全展开和纹理。
+
+-专业，清晰的几何图形。
+
+-所有材料，纹理和包装的其他部分正确命名。
+
+-汽车内部的脚本和信息屏幕、驾驶员方向盘的脚本。
+
+-主颜色可实时自定义。
+
+-多个皮肤。
+
+
+
+
+
+
+
+素材巷：www.sucaixiang.com
+专业的游戏素材资源下载网站，让游戏开发更容易、更省力、更省时！
+---------------------------------------------------------------------------------------------------
+#1免责声明：
+素材资源来自网络，仅限于个人学习参考，请勿用于任何商业用途，请严格遵守国家相关著作版权保护的法律和规则，请支持或购买正版，版权归原作者或其公司所有，请下载24小时内务必删除，否则后果自负，本站不承担任何责任！

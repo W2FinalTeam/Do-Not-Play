@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
         values.Add("紧张度", 500);
         //添加道具
         Tools.Add("手机", null);
+        Tools.Add("遥控汽车", null);
         //添加任务
         task.Add("获得手机", false);
 
