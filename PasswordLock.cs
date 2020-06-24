@@ -50,8 +50,10 @@ public class PasswordLock : ChangeableItem
             return;
         }
         LockUI.SetActive(true);
-        player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = false;
-        Cursor.visible = true;
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<Player>().enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;  
     }
     private void OnEndEdit(string s)
     {
@@ -68,7 +70,7 @@ public class PasswordLock : ChangeableItem
     private void UIExit()
     {
         LockUI.SetActive(false);
-        player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = true;
-        Cursor.visible = false;
+        player.GetComponent<FirstPersonController>().enabled = true;
+        player.GetComponent<Player>().enabled = true;
     }
 }
