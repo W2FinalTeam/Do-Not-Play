@@ -6,6 +6,12 @@ using UnityEngine.UI;
 public class Mobile : Tool
 {
     public GameObject phoneui;
+    //摄像头组
+    public GameObject cameraGroup;
+    public RenderTexture renderTexture;
+    private Camera[] cameras;
+    int currentCamera;
+
     GameManager GameManager;
     GameObject player;
     /// <summary>
@@ -28,19 +34,20 @@ public class Mobile : Tool
     public override void UnUse()
     {
         isusing = !isusing;
-   //     player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = true;
         this.phoneui.SetActive(false);
- //       Cursor.visible = true;
-   //     Debug.Log("unuse");
+
+        player.GetComponent<FirstPersonController>().enabled = true;
+        player.GetComponent<Player>().enabled = true;
     }
 
     public override void Use()
     {
         isusing = !isusing;
-        player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = false;//鼠标锁定与解锁
         this.phoneui.SetActive(true);
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<Player>().enabled = false;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Debug.Log("use");
     }
 
     // Start is called before the first frame update
@@ -53,11 +60,28 @@ public class Mobile : Tool
                 UnUse();
             });
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        cameraGroup = GameObject.Find("CameraGroup");
+        cameras = cameraGroup.GetComponentsInChildren<Camera>();
+        currentCamera = 0;
+        cameras[currentCamera].targetTexture = renderTexture;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isusing)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow)){
+                cameras[currentCamera].targetTexture = null;
+                currentCamera = currentCamera == (cameras.Length - 1) ? 0 : currentCamera +1;
+                cameras[currentCamera].targetTexture = renderTexture;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                cameras[currentCamera].targetTexture = null;
+                currentCamera = currentCamera  == 0 ? cameras.Length-1 : currentCamera - 1;
+                cameras[currentCamera].targetTexture = renderTexture;
+            }
+        }
     }
 }
