@@ -7,8 +7,13 @@ public class Mobile : Tool
 {
   
     GameManager GameManager;
-   
-    
+
+    //摄像头组
+    public GameObject cameraGroup;
+    public RenderTexture renderTexture;
+    private Camera[] cameras;
+    int currentCamera;
+
     GameObject player;
     /// <summary>
     /// 物体对应任务
@@ -31,12 +36,21 @@ public class Mobile : Tool
     {
         isusing = !isusing;
         GameManager.UIManager.SetUI(transform.name, false);
+
+        player.GetComponent<FirstPersonController>().enabled = true;
+        player.GetComponent<Player>().enabled = true;
     }
 
     public override void Use()
     {
         isusing = !isusing;
+
         GameManager.UIManager.SetUI(transform.name, true);
+
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<Player>().enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // Start is called before the first frame update
@@ -50,13 +64,30 @@ public class Mobile : Tool
             {
                 UnUse();
             });
-       
-   
+
+        cameraGroup = GameObject.Find("CameraGroup");
+        cameras = cameraGroup.GetComponentsInChildren<Camera>();
+        currentCamera = 0;
+        cameras[currentCamera].targetTexture = renderTexture;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isusing)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                cameras[currentCamera].targetTexture = null;
+                currentCamera = currentCamera == (cameras.Length - 1) ? 0 : currentCamera + 1;
+                cameras[currentCamera].targetTexture = renderTexture;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                cameras[currentCamera].targetTexture = null;
+                currentCamera = currentCamera == 0 ? cameras.Length - 1 : currentCamera - 1;
+                cameras[currentCamera].targetTexture = renderTexture;
+            }
+        }
     }
 }

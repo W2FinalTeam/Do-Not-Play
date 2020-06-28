@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class UIItem
 {
-   public bool isShow;
+    public bool isShow;
     public GameObject UI;
    
     public UIItem(bool isShow,GameObject UI)
