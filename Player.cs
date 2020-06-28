@@ -50,6 +50,11 @@ public class Player : MonoBehaviour
     }
     private void KeyEvent()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            
+            GameManager.UIManager.SetUI("Tab", !GameManager.UIManager.UImain["Tab"].isShow);
+        }
         if (targetItem == null)
             return;
         if (Input.GetKeyDown(KeyCode.E))

@@ -18,6 +18,7 @@ public class TabUI : MonoBehaviour
 	}
 	public void Init (Dictionary<string, int> values, Dictionary<string, GameObject> Tools)
 	{
+		Debug.Log("init");
 		this.values = values;
 		this.Tools = Tools;
 		foreach (var item in values)
