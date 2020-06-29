@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskManager : MonoBehaviour
+public class TaskManager : BaseManager<TaskManager>
 {
-    GameManager GameManager;
+  
     /// <summary>
     /// 任务预置
     /// </summary>
@@ -15,13 +15,7 @@ public class TaskManager : MonoBehaviour
     /// </summary>
     Dictionary<string, bool> task = new Dictionary<string, bool>();
     // Start is called before the first frame update
-    void Start()
-    {
-      
-      GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-          
-      
-    }
+
     /// <summary>
     /// 初始化任务
     /// </summary>

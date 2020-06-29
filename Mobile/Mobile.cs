@@ -53,18 +53,21 @@ public class Mobile : Tool
         Cursor.visible = true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+       override public void Init()
     {
         task = "获得手机";
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
-        GameManager.UIManager.UImain[transform.name].UI.transform.Find("Button").GetComponent<Button>().onClick.AddListener(
+        GameManager.UIManager.UImain["手机"].UI.transform.Find("Button").GetComponent<Button>().onClick.AddListener(
             delegate ()
             {
                 UnUse();
             });
-
+       
+   
+    }
+    void Start()
+    {
         cameraGroup = GameObject.Find("CameraGroup");
         cameras = cameraGroup.GetComponentsInChildren<Camera>();
         currentCamera = 0;

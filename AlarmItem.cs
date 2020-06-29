@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlarmItem : BaseItem 
+abstract class AlarmItem : BaseItem,IAlarmItem
 {
-    private AudioSource clip;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,21 +15,15 @@ public class AlarmItem : BaseItem
     {
         
     }
-    protected override void Init()
+    public override void Init()
     {
         myTransform = this.transform;
     }
-    protected override void Destory()
+    public override void Destory()
     {
         Destroy(gameObject);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("MoveableItem")|| other.CompareTag("Player")|| other.CompareTag("Tool"))
-            PlayWaringSound();
-    }
-    private void PlayWaringSound()
-    {
-        clip.PlayOneShot((AudioClip)Resources.Load("警报声"));
-    }
+
+    public abstract void OnTriggerEnter(Collider other);
+    public abstract void PlayWaringSound();
 }

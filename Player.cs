@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
         {
             
             GameManager.UIManager.SetUI("Tab", !GameManager.UIManager.UImain["Tab"].isShow);
+            GameManager.ShowInTab();
         }
         if (targetItem == null)
             return;

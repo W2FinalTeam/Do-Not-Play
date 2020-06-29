@@ -17,11 +17,11 @@ public abstract class Tool : BaseItem, ITool
     {
         
     }
-    protected override void Init()
+    public override  void Init()
     {
         myTransform = this.transform;
     }
-    protected override void Destory()
+    public override void Destory()
     {
         Destroy(gameObject);
     }

@@ -6,13 +6,13 @@ using UnityEngine.UIElements;
 public abstract class BaseItem : MonoBehaviour
 {
     protected Transform myTransform;
-    
+
     /// <summary>
     /// 初始化道具 
     /// </summary>
-    protected abstract void Init();
+    public abstract void Init();
     /// <summary>
     /// 摧毁道具
     /// </summary>
-    protected abstract void Destory();
+    public abstract void Destory();
 }

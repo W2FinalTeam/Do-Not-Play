@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class UIItem
 {
-    public bool isShow;
+   public bool isShow;
     public GameObject UI;
    
     public UIItem(bool isShow,GameObject UI)
@@ -15,26 +15,25 @@ public class UIItem
         this.UI = UI;
     }
 }
-public class UIManager : MonoBehaviour
+public class UIManager : BaseManager<UIManager>
 {   [SerializeField]
     public List<GameObject> UI=new List<GameObject>();
     public Dictionary<string,UIItem> UImain=new Dictionary<string, UIItem>();
  
-    GameManager GameManager;
-    private void Start()
+   
+    public  UIManager()
     {
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        foreach(GameObject item in UI)
+        int num = GameObject.Find("Canvas").transform.childCount;
+     
+        for(int i=0;i<num;i++)
         {
+            GameObject item = GameObject.Find("Canvas").transform.GetChild(i).gameObject;
+        
             UImain.Add(item.transform.name, new UIItem(false, item));
+          
         }
-       if(GameManager.UIManager!=null)
-        GameManager.InitTab();
-        else
-        {
-            GameManager.GetManager();
-            GameManager.InitTab();
-        }
+       
+
  
     }
     /// <summary>
@@ -50,11 +49,7 @@ public class UIManager : MonoBehaviour
     }
     public bool SetUI(string name,bool State)
     {
-       if(name=="Tab" && State == true)
-        {
-           
-            GameManager.ShowInTab();
-        }
+ 
         if (!UImain.ContainsKey(name))
         {
             return false;
