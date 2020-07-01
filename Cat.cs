@@ -20,7 +20,7 @@ public class Cat : ChangeableItem
     }
     public override void Interact(GameObject inHandItem)
     {
-        if (inHandItem == apple)
+        if (isTrigger)
         {
             //停止播放猫叫
             clip.enabled = false;
