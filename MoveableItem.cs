@@ -13,6 +13,7 @@ public class MoveableItem : BaseItem, IMoveableItem
     void Start()
     {
         clip = gameObject.GetComponent<AudioSource>();
+        clip.enabled = false;
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class MoveableItem : BaseItem, IMoveableItem
         inHand = false;
         role = null;
     }
-    public override void Destory()
+   public override void Destory()
     {
         Destroy(this.gameObject);
     }
@@ -44,11 +45,11 @@ public class MoveableItem : BaseItem, IMoveableItem
         this.transform.SetParent(null);
         //让物品接受物理事件
         this.GetComponent<Rigidbody>().isKinematic = false;
-        //获取主角方向
+        //运用TransformDirection()方法获取一个方向
         Vector3 camDirct = Camera.main.ScreenPointToRay(Input.mousePosition).direction;
         //为物品添加一个向前的冲量
         this.GetComponent<Rigidbody>().AddForce(camDirct, ForceMode.Impulse);
-        Invoke("PlayDropSound", 0.8f);
+        clip.enabled = true;
     }
     //负责实现-拾取物品将物品展示在手上
     public void PickUpItem(GameObject role)
@@ -61,11 +62,17 @@ public class MoveableItem : BaseItem, IMoveableItem
             transform.position = rightHandLocation.position;
             transform.rotation = rightHandLocation.rotation;
             transform.parent = role.transform;
+           
         }
-        else if (role.CompareTag("Mother") || role.CompareTag("Father"))
+
+       else if (role.CompareTag("Mother") || role.CompareTag("Father"))
         {
             //--------
         }
 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        PlayDropSound();
     }
 }
