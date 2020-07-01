@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
             }
             if (targetItem.CompareTag("ChangeableItem"))
             {
-                targetItem.GetComponent<ChangeableItem>().Interact();
+                targetItem.GetComponent<ChangeableItem>().Interact(inHandItem);
                 return;
             }
         }

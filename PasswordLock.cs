@@ -43,6 +43,10 @@ public class PasswordLock : ChangeableItem
     }
     public override void Interact()
     {
+
+    }
+    public override void Interact(GameObject inHandItem)
+    {
         if (isUnLock)
         {
             anim.enabled = true;

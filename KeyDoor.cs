@@ -9,19 +9,23 @@ public class KeyDoor : ChangeableItem
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    public override void Interact()
+    public override void Interact(GameObject inHandItem)
     {
-        if(player.inHandItem==axe)
+        if (inHandItem == axe)
         {
             this.GetComponent<Animator>().SetBool("isOpen_Obj_1", true);
         }
+    }
+    public override void Interact()
+    {
+
     }
 }

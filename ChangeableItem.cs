@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class ChangeableItem : BaseItem, IChangeableItem
+public abstract class ChangeableItem : BaseItem, IChangeableItem
 {
  
     // Start is called before the first frame update

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class BaseItem : MonoBehaviour
 {
-    protected Transform myTransform;
+    public Transform myTransform;
 
     /// <summary>
     /// 初始化道具 

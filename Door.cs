@@ -15,7 +15,7 @@ public class Door : ChangeableItem
         Init();
         player = GameObject.FindWithTag("Player");
     }
-    protected override void Init()
+    public override void Init()
     {
         myTransform = this.transform;
         isOpen = false;
@@ -29,7 +29,7 @@ public class Door : ChangeableItem
     {
 
     }
-    public override void Interact()
+    public override void Interact(GameObject inHandItem)
     {
         if (!isUnLock)
         {
@@ -43,6 +43,10 @@ public class Door : ChangeableItem
             gameObject.GetComponent<HingeJoint>().motor = joint;
 
         }
+
+    }
+    public override void Interact()
+    {
 
     }
     private void UnLock()

@@ -16,11 +16,15 @@ public class HidingPoint : ChangeableItem
 	void Update()
 	{
 	}
-    public override void Interact()
+    public override void Interact(GameObject inHandItem)
     {
 		bool isOpen = anim.GetBool(animBoolName);    
 
 		anim.enabled = true;
 		anim.SetBool(animBoolName, !isOpen);
+	}
+	public override void Interact()
+	{
+
 	}
 }
