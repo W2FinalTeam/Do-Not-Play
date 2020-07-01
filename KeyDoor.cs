@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyDoor : ChangeableItem
 {
     public GameObject axe;//斧头
-    public Player player;
+   
     // Start is called before the first frame update
     void Start()
     {
