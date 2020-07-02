@@ -3,15 +3,22 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 public class CanSeePlayer : Conditional 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("视线最大距离")]
+    public float viewDistance;
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("视野最大角度")]
+    public float viewAngle;
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家")]
+    public SharedGameObject player;
 
-    // Update is called once per frame
-    void Update()
+    public override TaskStatus OnUpdate()
     {
-        
+        if (Vector3.Distance(transform.position, player.Value.transform.position) < viewDistance)
+        {
+            if (Vector3.Angle(transform.forward, player.Value.transform.position) < viewAngle / 2)
+            {
+                return TaskStatus.Success;
+            }
+        }
+        return TaskStatus.Failure;
     }
 }

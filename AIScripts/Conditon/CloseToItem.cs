@@ -3,15 +3,17 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 public class CloseToItem : Conditional 
 {
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("和物品距离")]
+    public float distance;
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("丢失的物品")]
+    public SharedGameObject lostItem;
     // Start is called before the first frame update
-    void Start()
+    public override TaskStatus OnUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Vector3.Distance(lostItem.Value.transform.position, transform.position) > distance)
+        {
+            return TaskStatus.Failure;
+        }
+        return TaskStatus.Success;
     }
 }

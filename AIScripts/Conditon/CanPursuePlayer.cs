@@ -3,15 +3,16 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 public class CanPursuePlayer : Conditional
 {
-    // Start is called before the first frame update
-    void Start()
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("紧张度")]
+    public SharedFloat tension;
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("紧张度阈值")]
+    public float minTension;
+    public override TaskStatus OnUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (tension.Value >= minTension)
+        {
+            return TaskStatus.Success;
+        }
+        return TaskStatus.Failure;
     }
 }

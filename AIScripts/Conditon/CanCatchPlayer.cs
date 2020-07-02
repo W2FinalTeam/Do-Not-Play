@@ -4,15 +4,19 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class CanCatchPlayer : Conditional
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("抓捕距离")]
+    public float distance;
 
-    // Update is called once per frame
-    void Update()
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家")]
+    public SharedGameObject player;
+
+
+    public override TaskStatus OnUpdate()
     {
-        
+        if (Vector3.Distance(player.Value.transform.position,transform.position) > distance)
+        {
+            return TaskStatus.Failure;
+        }
+        return TaskStatus.Success;
     }
 }
