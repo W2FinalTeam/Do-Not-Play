@@ -17,12 +17,11 @@ public class CanSeePlayer : Conditional
             if (Vector3.Angle(transform.forward, player.Value.transform.position) < viewAngle / 2)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(player.Value.transform.position, transform.position - player.Value.transform.position, out hit, viewDistance){
+                if (Physics.Raycast(player.Value.transform.position, transform.position - player.Value.transform.position, out hit, viewDistance)){
                     if (hit.collider.gameObject == player.Value)
                         return TaskStatus.Success;
                 }
             }
-            
         }
         return TaskStatus.Failure;
     } 

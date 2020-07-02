@@ -6,15 +6,14 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class GameManager : MonoBehaviour
 {
-
     /// <summary>
     /// 状态值
     /// </summary>
-     Dictionary<string, int> values=new Dictionary<string, int>();
+    Dictionary<string, int> values = new Dictionary<string, int>();
     /// <summary>
     /// 工具获取状态
     /// </summary>
-     Dictionary<string, GameObject> Tools = new Dictionary<string, GameObject>();
+    Dictionary<string, GameObject> Tools = new Dictionary<string, GameObject>();
     public UIManager UIManager;
     public TaskManager TaskManager;
     public GameObject player;
@@ -22,23 +21,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GetPlayer();
-        UIManager=UIManager.GetInstance();
+        UIManager = UIManager.GetInstance();
         InitTab();
-        TaskManager=TaskManager.GetInstance();
-
+        TaskManager = TaskManager.GetInstance();
+        InitTools();
 
 
 
     }
     void InitTools()
     {
-        foreach(GameObject o in GameObject.FindGameObjectsWithTag("Tool"))
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Tool"))
         {
             o.GetComponent<Tool>().Init();
         }
     }
-     void InitTab()
-    {        //添加数值
+    void InitTab()
+    {       
+        //添加数值
         values.Add("钱", 5);
         values.Add("心跳", 100);
         values.Add("紧张度", 500);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         Tools.Add("手机", null);
         UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Init(values, Tools);
     }
-  
+
     /// <summary>
     /// 设置道具获取状态
     /// </summary>
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     /// <param name="value"></param>
     public void SetTool(string key, GameObject value)
     {
-        
+
         Tools[key] = value;
     }
     /// <summary>
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public bool GetTool(string key)
     {
-        return Tools[key]!=null;
+        return Tools[key] != null;
     }
     /// <summary>
     /// 获得参数值
@@ -80,11 +80,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    public void Setvalue(string key,int value)
+    public void Setvalue(string key, int value)
     {
         values[key] = value;
     }
-      bool GetPlayer()
+    bool GetPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         return player != null;
@@ -94,19 +94,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Tab界面更新
     /// </summary>
-    public  void ShowInTab()
+    public void ShowInTab()
     {
 
-      UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Updatevalues(values, Tools); ;
-    
+        UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Updatevalues(values, Tools); ;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-     
-       
+
+
+
 
     }
 }

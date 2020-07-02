@@ -5,7 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.UI;
 public class Mobile : Tool
 {
-  
+
     GameManager GameManager;
 
     //摄像头组
