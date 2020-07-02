@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-public class CanSeePlayer : Conditional 
+public class CanSeePlayer : Conditional
 {
     [BehaviorDesigner.Runtime.Tasks.Tooltip("视线最大距离")]
     public float viewDistance;
@@ -16,9 +16,14 @@ public class CanSeePlayer : Conditional
         {
             if (Vector3.Angle(transform.forward, player.Value.transform.position) < viewAngle / 2)
             {
-                return TaskStatus.Success;
+                RaycastHit hit;
+                if (Physics.Raycast(player.Value.transform.position, transform.position - player.Value.transform.position, out hit, viewDistance){
+                    if (hit.collider.gameObject == player.Value)
+                        return TaskStatus.Success;
+                }
             }
+            
         }
         return TaskStatus.Failure;
-    }
+    } 
 }
