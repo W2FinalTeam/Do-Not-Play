@@ -4,15 +4,13 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class GetPlayerPosition : Action
 {
-    // Start is called before the first frame update
-    void Start()
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家坐标")]
+    public SharedTransform position;
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家")]
+    public SharedGameObject player;
+    public override TaskStatus OnUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        position = player.Value.transform;
+        return TaskStatus.Success;
     }
 }

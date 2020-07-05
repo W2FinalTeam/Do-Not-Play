@@ -66,4 +66,20 @@ public class Door : ChangeableItem
         }
         isUnLock = true;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Mother"))
+        {
+            joint.targetVelocity = 100;
+            gameObject.GetComponent<HingeJoint>().motor = joint;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Mother"))
+        {
+            joint.targetVelocity = -100;
+            gameObject.GetComponent<HingeJoint>().motor = joint;
+        }
+    }
 }
