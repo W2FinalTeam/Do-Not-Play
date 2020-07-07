@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         setupGui();
+      
     }
     private void Update()
     {
@@ -46,13 +47,13 @@ public class Player : MonoBehaviour
         {
             targetItem = null;
             showInteractMsg = false;
-        }  
+        }
     }
     private void KeyEvent()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            
+
             GameManager.UIManager.SetUI("Tab", !GameManager.UIManager.UImain["Tab"].isShow);
             GameManager.ShowInTab();
         }
@@ -60,10 +61,15 @@ public class Player : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if(targetItem.GetComponent<KeyItem>()!=null)
+            {
+                targetItem.GetComponent<KeyItem>().PlayerTookMe();
+            }
             if (targetItem.CompareTag("MoveableItem") && inHandItem == null)
             {
                 targetItem.GetComponent<MoveableItem>().PickUpItem(this.gameObject);
                 inHandItem = targetItem;
+                ItemList.Add(targetItem);
                 return;
             }
             if (targetItem.CompareTag("Tool"))
@@ -77,6 +83,7 @@ public class Player : MonoBehaviour
                 targetItem.GetComponent<ChangeableItem>().Interact(inHandItem);
                 return;
             }
+            
         }
         if (Input.GetKeyDown(KeyCode.G) && inHandItem != null)
         {
@@ -103,4 +110,3 @@ public class Player : MonoBehaviour
     //End of GUI Config --------------
     #endregion
 }
-
