@@ -29,7 +29,23 @@ public class LevelManager : BaseManager<LevelManager>
     /// </summary>
     List<String> Tool = new List<String>();
     // Start is called before the first frame update
-
+    /// <summary>
+    /// 任务检测
+    /// </summary>
+    /// <param name="task"></param>
+    /// <returns></returns>
+    public bool CheckTask(String task)
+    {
+        if (HaveTask(task) && !GetTask(task))
+        {
+            
+            SetTask(task, true);
+            return true;
+        }
+    
+            return false;
+  
+    }
     /// <summary>
     /// 加载本地数据
     /// </summary>
@@ -69,6 +85,13 @@ public class LevelManager : BaseManager<LevelManager>
         {
             this.Tool.Add(tool);
             Debug.Log(tool);
+        }
+        ///创建道具
+        //TODO
+        ///调用道具的Init
+        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Tool"))
+        {
+            o.GetComponent<Tool>().Init();
         }
     }
     /// <summary>
@@ -150,7 +173,7 @@ public class LevelManager : BaseManager<LevelManager>
         }
         return true;
     }
-     void Finish()
+    public void Finish()
     {
         Debug.Log("通过" + level);
         level += 1;

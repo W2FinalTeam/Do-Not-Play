@@ -22,10 +22,7 @@ public class Mobile : Tool
 
     public override GameObject PickUpItem(Transform parent)
     {
-        if (GameManager.LevelManager.HaveTask(task) && !GameManager.LevelManager.GetTask(task)) 
-        {
-            GameManager.LevelManager.SetTask(task, true);
-        }
+        GameManager.LevelManager.CheckTask(task);
         Destroy(this.gameObject.GetComponent<Rigidbody>());
         this.transform.position = new Vector3(0,0,0);
         player = GameObject.FindGameObjectWithTag("Player");
