@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     Dictionary<string, GameObject> Tools = new Dictionary<string, GameObject>();
     public UIManager UIManager;
-    public TaskManager TaskManager;
+    public LevelManager LevelManager;
     public GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         GetPlayer();
         UIManager = UIManager.GetInstance();
         InitTab();
-        TaskManager = TaskManager.GetInstance();
+        LevelManager = LevelManager.GetInstance();
         InitTools();
 
 
