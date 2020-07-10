@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameManager GameManager;
+    //房间出生点
+    public Transform room;
+    public GameManager gameManager;
     //可拾取距离
     public float reachRange;
     //存储永久性获得道具
@@ -20,7 +22,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         setupGui();
       
     }
@@ -54,8 +56,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
 
-            GameManager.UIManager.SetUI("Tab", !GameManager.UIManager.UImain["Tab"].isShow);
-            GameManager.ShowInTab();
+            gameManager.UIManager.SetUI("Tab", !gameManager.UIManager.UImain["Tab"].isShow);
+            gameManager.ShowInTab();
         }
         if (targetItem == null)
             return;
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
             if (targetItem.CompareTag("Tool"))
             {
                 ItemList.Add(targetItem.GetComponent<Tool>().PickUpItem(this.transform));
-                GameManager.SetTool(targetItem.name, targetItem);
+                gameManager.SetTool(targetItem.name, targetItem);
                 return;
             }
             if (targetItem.CompareTag("ChangeableItem"))
@@ -109,4 +111,12 @@ public class Player : MonoBehaviour
     }
     //End of GUI Config --------------
     #endregion
+    /// <summary>
+    /// 被母亲抓到后重新开始
+    /// </summary>
+    public void Restart()
+    {
+        this.transform.position = room.position;
+        gameManager.Restart();
+    }
 }

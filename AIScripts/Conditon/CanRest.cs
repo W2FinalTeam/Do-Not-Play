@@ -4,15 +4,12 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class CanRest : Conditional 
 {
-    // Start is called before the first frame update
-    void Start()
+    [BehaviorDesigner.Runtime.Tasks.Tooltip("紧张度降到一定程度就休息")]
+    public float maxTension;
+    public override TaskStatus OnUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (GetComponent<Mother>().WholeTension < maxTension)
+            return TaskStatus.Success;
+        return TaskStatus.Failure;
     }
 }
