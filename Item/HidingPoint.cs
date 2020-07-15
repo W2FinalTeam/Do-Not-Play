@@ -13,9 +13,6 @@ public class HidingPoint : ChangeableItem
 		anim = GetComponent<Animator>(); 
 		anim.enabled = false;  
 	}
-	void Update()
-	{
-	}
     public override void Interact(GameObject inHandItem)
     {
 		bool isOpen = anim.GetBool(animBoolName);    

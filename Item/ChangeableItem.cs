@@ -10,12 +10,6 @@ public abstract class ChangeableItem : BaseItem, IChangeableItem
     {
         Init();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public override void Init()
     {
         myTransform = this.transform;

@@ -6,29 +6,24 @@ using System;
 public class Door : ChangeableItem
 {
     public GameObject[] key;
-    private JointMotor joint;
     private bool isOpen;
     private bool isUnLock;
     private GameObject player;
+    private Animator anim;
     void Start()
     {
         Init();
         player = GameObject.FindWithTag("Player");
+
     }
     public override void Init()
     {
         myTransform = this.transform;
         isOpen = false;
         isUnLock = false;
-
-        joint.force = 20;
+        anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override void Interact(GameObject inHandItem)
     {
         if (!isUnLock)
@@ -37,21 +32,23 @@ public class Door : ChangeableItem
         }
         if (isUnLock)
         {
-            joint.targetVelocity = isOpen == true ? -100 : 100;
             isOpen = !isOpen;
-
-            gameObject.GetComponent<HingeJoint>().motor = joint;
-
+            if (!isOpen)
+            {
+                anim.SetBool("isDoorOpen", true);
+            }
+            else
+            {
+                anim.SetBool("isDoorOpen", false);
+            }
         }
-
     }
     public override void Interact()
     {
-
     }
     private void UnLock()
     {
-        if (key == null )
+        if (key == null)
         {
             isUnLock = true;
             return;
@@ -70,16 +67,14 @@ public class Door : ChangeableItem
     {
         if (other.CompareTag("Mother"))
         {
-            joint.targetVelocity = 100;
-            gameObject.GetComponent<HingeJoint>().motor = joint;
+            anim.SetBool("isDoorOpen", true);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Mother"))
         {
-            joint.targetVelocity = -100;
-            gameObject.GetComponent<HingeJoint>().motor = joint;
+            anim.SetBool("isDoorOpen", false);
         }
     }
 }

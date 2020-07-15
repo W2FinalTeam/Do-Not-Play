@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
-//新增加，需同步
-public class ItemShoundNotHere : Conditional 
+public class ItemBeThrownKnown : Action 
 {
     private Mother mother;
     public override void OnAwake()
     {
         mother = GetComponent<Mother>();
     }
+    // Start is called before the first frame update
     public override TaskStatus OnUpdate()
     {
-        if (mother.FindItem==null|| mother.lostItem.GetComponent<KeyItem>().IsChecked2 == true)
-            return TaskStatus.Failure;
+        mother.FindItem.GetComponent<KeyItem>().IsChecked2 = true;
+        mother.FindItem = null;
         return TaskStatus.Success;
     }
 }

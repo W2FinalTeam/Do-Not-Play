@@ -13,16 +13,11 @@ public class Mirror : ChangeableItem //镜子
     public Player player;
     public GameObject text;//3Dtext
     public GameObject canvas;//提示信息
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.targetItem == this.gameObject && text.active == false)
+        if (player.targetItem == this.gameObject && text.activeSelf == false)
         {
             canvas.SetActive(true);
         }

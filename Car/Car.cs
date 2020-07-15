@@ -5,7 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Car : Tool
 {
-    GameManager GameManager;
+    GameManager gameManager;
     GameObject player;
     GameObject Camera_main;
     GameObject Camera_Car;
@@ -22,8 +22,8 @@ public class Car : Tool
     /// </summary>
     public override void UnUse()
     {
-        Camera_Car.SetActive(false);
-        Camera_main.SetActive(true);
+        Camera_Car.GetComponent<Camera>().enabled=false;
+        Camera_main.GetComponent<Camera>().enabled = true;
         player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = true;
         player.GetComponent<FirstPersonController>().enabled = true;
         player.GetComponent<Player>().enabled = true;
@@ -37,11 +37,12 @@ public class Car : Tool
     {
         this.transform.position = new Vector3(player.transform.position.x + 1, 0, player.transform.position.z);
         this.transform.rotation = player.transform.rotation;
-        Camera_Car.SetActive(true);
-        Camera_main.SetActive(false);
+        Camera_Car.GetComponent<Camera>().enabled = true;
+        Camera_main.GetComponent<Camera>().enabled = false;
         player.GetComponent<FirstPersonController>().m_MouseLook.lockCursor = false;
         player.GetComponent<FirstPersonController>().enabled = false;
         player.GetComponent<Player>().enabled = false;
+        gameManager.UIManager.SetUI("Tab",false);
         this.gameObject.GetComponent<CarController>().enabled = true;
     }
 
@@ -50,20 +51,13 @@ public class Car : Tool
         player = GameObject.FindGameObjectWithTag("Player");
         Camera_Car = GameObject.Find("遥控汽车/Camera_Car");
         Camera_main = GameObject.Find("Player/Camera_Main");
+        Camera_Car.GetComponent<Camera>().enabled = false;
     }
     private void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     /// <summary>
     /// 按G停止控制小车
     /// </summary>
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            UnUse();
-        }
-
-    }
 }

@@ -1,11 +1,11 @@
 ﻿using Boo.Lang;
 using System;
 using UnityEngine;
-
+//被改变，需同步
 public class Player : MonoBehaviour
-{
-    //房间出生点
+{    //房间出生点
     public Transform room;
+
     public GameManager gameManager;
     //可拾取距离
     public float reachRange;
@@ -15,16 +15,11 @@ public class Player : MonoBehaviour
     public GameObject inHandItem = null;
     //被射线检测到的物体
     public GameObject targetItem;
-    //GUI
-    private bool showInteractMsg;
-    private GUIStyle guiStyle;
-    private string msg;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        setupGui();
-      
+
     }
     private void Update()
     {
@@ -40,22 +35,21 @@ public class Player : MonoBehaviour
             targetItem = hit.collider.gameObject;
             if (targetItem.GetComponent<BaseItem>() != null)
             {
-                showInteractMsg = true;
+                gameManager.UIManager.SetUI("KeyTipE", true);
             }
             else
-                showInteractMsg = false;
+                gameManager.UIManager.SetUI("KeyTipE", false);
         }
         else
         {
             targetItem = null;
-            showInteractMsg = false;
+            gameManager.UIManager.SetUI("KeyTipE", false);
         }
     }
     private void KeyEvent()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-
             gameManager.UIManager.SetUI("Tab", !gameManager.UIManager.UImain["Tab"].isShow);
             gameManager.ShowInTab();
         }
@@ -63,7 +57,7 @@ public class Player : MonoBehaviour
             return;
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(targetItem.GetComponent<KeyItem>()!=null)
+            if (targetItem.GetComponent<KeyItem>() != null)
             {
                 targetItem.GetComponent<KeyItem>().PlayerTookMe();
             }
@@ -85,37 +79,35 @@ public class Player : MonoBehaviour
                 targetItem.GetComponent<ChangeableItem>().Interact(inHandItem);
                 return;
             }
-            
+
         }
+        if (inHandItem != null)
+        {
+            gameManager.UIManager.SetUI("KeyTipG", true);
+
+        }
+        else
+            gameManager.UIManager.SetUI("KeyTipG", false);
         if (Input.GetKeyDown(KeyCode.G) && inHandItem != null)
         {
             inHandItem.GetComponent<MoveableItem>().ThrowItem();
             inHandItem = null;
+            if (targetItem.GetComponent<KeyItem>() != null)
+            {
+                targetItem.GetComponent<KeyItem>().PlayerThrowMe();
+            }
         }
     }
-    #region GUI Config
-    private void setupGui()
-    {
-        guiStyle = new GUIStyle();
-        guiStyle.fontSize = 16;
-        guiStyle.fontStyle = FontStyle.Bold;
-        guiStyle.normal.textColor = Color.white;
-        msg = "Press E";
-    }
-    void OnGUI()
-    {
-        if (showInteractMsg)  //show on-screen prompts to user for guide.
-        {
-            GUI.Label(new Rect(50, Screen.height - 50, 200, 50), msg, guiStyle);
-        }
-    }
-    //End of GUI Config --------------
-    #endregion
     /// <summary>
     /// 被母亲抓到后重新开始
     /// </summary>
     public void Restart()
     {
+        if (inHandItem != null)
+        {
+            inHandItem.GetComponent<MoveableItem>().ThrowItem();
+            inHandItem = null;
+        }
         this.transform.position = room.position;
         gameManager.Restart();
     }

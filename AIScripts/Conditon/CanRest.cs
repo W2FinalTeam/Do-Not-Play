@@ -6,10 +6,19 @@ public class CanRest : Conditional
 {
     [BehaviorDesigner.Runtime.Tasks.Tooltip("紧张度降到一定程度就休息")]
     public float maxTension;
+    public bool isRunning = false;
+    private Mother mother;
+    public override void OnStart()
+    {
+        mother = GetComponent<Mother>();
+    }
     public override TaskStatus OnUpdate()
     {
-        if (GetComponent<Mother>().WholeTension < maxTension)
+        if (mother.WholeTension < maxTension)
+        {
             return TaskStatus.Success;
+        }
+        isRunning = false;
         return TaskStatus.Failure;
     }
 }

@@ -13,11 +13,6 @@ public class Cat : ChangeableItem
         clip = gameObject.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override void Interact(GameObject inHandItem)
     {
         if (isTrigger)

@@ -4,13 +4,16 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class GetPlayerPosition : Action
 {
-    [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家坐标")]
-    public SharedTransform position;
+    private Mother mother;
     [BehaviorDesigner.Runtime.Tasks.Tooltip("玩家")]
     public SharedGameObject player;
+    public override void OnStart()
+    {
+        mother = GetComponent<Mother>();
+    }
     public override TaskStatus OnUpdate()
     {
-        position = player.Value.transform;
+        mother.Destination = player.Value.transform.position;
         return TaskStatus.Success;
     }
 }

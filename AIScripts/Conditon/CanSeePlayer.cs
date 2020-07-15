@@ -12,17 +12,28 @@ public class CanSeePlayer : Conditional
 
     public override TaskStatus OnUpdate()
     {
-        if (Vector3.Distance(transform.position, player.Value.transform.position) < viewDistance)
+        Vector3 Mpoi = transform.position;
+        Vector3 Ppoi = player.Value.transform.position;
+        Mpoi.y = 1.5f;
+        Ppoi.y = 0.8f;
+        float distance = Vector3.Distance(Mpoi, Ppoi);
+        float angle = Vector3.Angle(transform.forward, Ppoi - Mpoi);
+
+        if (distance <= viewDistance && angle <= viewAngle * 0.5f)
         {
-            if (Vector3.Angle(transform.forward, player.Value.transform.position) < viewAngle / 2)
+            RaycastHit hit;
+            if (Physics.Raycast(Mpoi, Ppoi - Mpoi, out hit, viewDistance))
             {
-                RaycastHit hit;
-                if (Physics.Raycast(player.Value.transform.position, transform.position - player.Value.transform.position, out hit, viewDistance)){
-                    if (hit.collider.gameObject == player.Value)
-                        return TaskStatus.Success;
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    GetComponent<Mother>().Destination = player.Value.transform.position;
+                    return TaskStatus.Success;
                 }
             }
         }
         return TaskStatus.Failure;
-    } 
+    }
 }
+
+
+

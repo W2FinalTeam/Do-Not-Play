@@ -12,11 +12,6 @@ public abstract class Tool : BaseItem, ITool
         Init();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public override  void Init()
     {
         myTransform = this.transform;

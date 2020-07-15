@@ -4,8 +4,13 @@ using System.Collections.Generic;
 
 public class CarController : MonoBehaviour
 {
+    public Car car;
     public float MoveSpeed = 2;
     public float RotateSpeed = 90;
+    private void Start()
+    {
+        car = GameObject.Find("遥控汽车").GetComponent<Car>();
+    }
     private void Update()
     {
         if(Input.GetKey(KeyCode.W))
@@ -23,6 +28,10 @@ public class CarController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             this.transform.Rotate(Vector3.up* Time.deltaTime * RotateSpeed);
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            car.UnUse();
         }
     }
 }

@@ -33,7 +33,7 @@ public class Mobile : Tool
     {
         isusing = !isusing;
         GameManager.UIManager.SetUI(transform.name, false);
-
+        cameras[currentCamera].enabled = false;
         player.GetComponent<FirstPersonController>().enabled = true;
         player.GetComponent<Player>().enabled = true;
     }
@@ -43,7 +43,8 @@ public class Mobile : Tool
         isusing = !isusing;
 
         GameManager.UIManager.SetUI(transform.name, true);
-
+        cameras[currentCamera].enabled = true;
+        cameras[currentCamera].targetTexture = renderTexture;
         player.GetComponent<FirstPersonController>().enabled = false;
         player.GetComponent<Player>().enabled = false;
         Cursor.lockState = CursorLockMode.None;
@@ -60,15 +61,16 @@ public class Mobile : Tool
             {
                 UnUse();
             });
-       
-   
     }
     void Start()
     {
         cameraGroup = GameObject.Find("CameraGroup");
         cameras = cameraGroup.GetComponentsInChildren<Camera>();
         currentCamera = 0;
-        cameras[currentCamera].targetTexture = renderTexture;
+        foreach(var cam in cameras)
+        {
+            cam.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -79,13 +81,17 @@ public class Mobile : Tool
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 cameras[currentCamera].targetTexture = null;
+                cameras[currentCamera].enabled = false;
                 currentCamera = currentCamera == (cameras.Length - 1) ? 0 : currentCamera + 1;
+                cameras[currentCamera].enabled = true;
                 cameras[currentCamera].targetTexture = renderTexture;
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 cameras[currentCamera].targetTexture = null;
+                cameras[currentCamera].enabled = false;
                 currentCamera = currentCamera == 0 ? cameras.Length - 1 : currentCamera - 1;
+                cameras[currentCamera].enabled = true;
                 cameras[currentCamera].targetTexture = renderTexture;
             }
         }

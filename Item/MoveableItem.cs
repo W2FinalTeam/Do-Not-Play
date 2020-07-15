@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class MoveableItem : BaseItem, IMoveableItem
 {
-    public Transform rightHandLocation;
+    private Transform rightHandLocation;
     private bool inHand;
     private GameObject role;
     private AudioSource clip;
+    private bool isPlayed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,18 +17,13 @@ public class MoveableItem : BaseItem, IMoveableItem
         clip.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override void Init()
     {
         myTransform = this.transform;
         inHand = false;
         role = null;
     }
-   public override void Destory()
+    public override void Destory()
     {
         Destroy(this.gameObject);
     }
@@ -39,7 +35,8 @@ public class MoveableItem : BaseItem, IMoveableItem
     /// 按下G键向人物前方投掷手中物品
     /// </summary>
     public void ThrowItem()
-    {//不再放在手上
+    {
+        //不再放在手上
         inHand = false;
         //解除父子关系
         this.transform.SetParent(null);
@@ -50,6 +47,7 @@ public class MoveableItem : BaseItem, IMoveableItem
         //为物品添加一个向前的冲量
         this.GetComponent<Rigidbody>().AddForce(camDirct, ForceMode.Impulse);
         clip.enabled = true;
+        isPlayed = false;
     }
     //负责实现-拾取物品将物品展示在手上
     public void PickUpItem(GameObject role)
@@ -58,14 +56,15 @@ public class MoveableItem : BaseItem, IMoveableItem
         inHand = true;
         if (role.CompareTag("Player"))
         {
+            rightHandLocation = role.transform.Find("RightHand").transform;
             this.GetComponent<Rigidbody>().isKinematic = true;
             transform.position = rightHandLocation.position;
             transform.rotation = rightHandLocation.rotation;
-            transform.parent = role.transform;
-           
+            transform.parent = rightHandLocation;
+
         }
 
-       else if (role.CompareTag("Mother") || role.CompareTag("Father"))
+        else if (role.CompareTag("Mother") || role.CompareTag("Father"))
         {
             //--------
         }
@@ -73,6 +72,10 @@ public class MoveableItem : BaseItem, IMoveableItem
     }
     private void OnCollisionEnter(Collision collision)
     {
-        PlayDropSound();
+        if (clip.enabled && isPlayed == false)
+        {
+            PlayDropSound();
+            isPlayed = true;
+        }
     }
 }

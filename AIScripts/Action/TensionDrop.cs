@@ -3,15 +3,19 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 public class TensionDrop : Action 
 {
-    // Start is called before the first frame update
-    void Start()
+    public int HowManyFramesPerDrop;
+    public int DropValue;
+    private int Frame=0;
+    private Mother mother;
+    public override void OnAwake()
     {
-        
+        mother = GetComponent<Mother>();
+        Frame = 0;
     }
-
-    // Update is called once per frame
-    void Update()
+    public override TaskStatus OnUpdate()
     {
-        
+        if(++Frame% HowManyFramesPerDrop == 0)
+            mother.ChangeTempTensionValue(DropValue);
+        return TaskStatus.Success;
     }
 }

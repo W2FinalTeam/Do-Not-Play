@@ -9,19 +9,36 @@ public class GotoDestination : Action
 {
     [BehaviorDesigner.Runtime.Tasks.Tooltip("移动的速度")]
     public float speed = 2;
-    [BehaviorDesigner.Runtime.Tasks.Tooltip("坐标")]
-    public SharedTransform position;
     [BehaviorDesigner.Runtime.Tasks.Tooltip("到达距离")]
     public float distance = 0.5f;
+
+    private NavMeshAgent agent;
+    private Animator animator;
+    private Mother mother;
+
+    public override void OnStart()
+    {
+        animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        mother = GetComponent<Mother>();
+    }
     public override TaskStatus OnUpdate()
     {
-        GetComponent<NavMeshAgent>().isStopped = false;
-        GetComponent<NavMeshAgent>().speed = speed;
-        GetComponent<NavMeshAgent>().SetDestination(position.Value.position);
-        if(Vector3.Distance(transform.position, position.Value.position) > distance)
+        animator.SetBool("isWalk", true);
+        agent.isStopped = false;
+        agent.speed = speed;
+        if (mother.Destination == Vector3.zero)
+            return TaskStatus.Failure;
+        if (agent.SetDestination(mother.Destination)&&agent.hasPath)
         {
-            return TaskStatus.Running;
+            if (Vector3.Distance(transform.position, mother.Destination) > distance)
+            {
+                return TaskStatus.Running;
+            }
+            mother.Destination = Vector3.zero;
+            return TaskStatus.Success;
         }
-        return TaskStatus.Success;
+        mother.Destination = Vector3.zero;
+        return TaskStatus.Failure;
     }
 }

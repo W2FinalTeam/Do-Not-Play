@@ -6,7 +6,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class GameManager : MonoBehaviour
 {
-
     /// <summary>
     /// 状态值
     /// </summary>
@@ -19,9 +18,9 @@ public class GameManager : MonoBehaviour
     public LevelManager LevelManager;
     public GameObject player;
     bool firsttime = true;
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        Application.targetFrameRate = 60;
         GetPlayer();
         UIManager=UIManager.GetInstance();
         LevelManager = LevelManager.GetInstance();
@@ -65,9 +64,10 @@ public class GameManager : MonoBehaviour
             //添加数值
             values.Add("钱", 5);
             values.Add("心跳", 100);
-            values.Add("紧张度", 500);
+            values.Add("紧张度", 0);
             //添加道具
             Tools.Add("手机", null);
+            Tools.Add("遥控汽车", null);
             UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Init(values, Tools);
             firsttime = false;
         }
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         {
             values["钱"]= 5;
             values["心跳"] =100;
-            values["紧张度"] = 500;
+            values["紧张度"] = 0;
          
             Tools["手机"]=null;
             UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Updatevalues(values, Tools);
@@ -139,13 +139,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             Restart();
         }
-
     }
 }
 

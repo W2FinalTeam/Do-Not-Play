@@ -36,11 +36,6 @@ public class PasswordLock : ChangeableItem
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public override void Interact()
     {
 
