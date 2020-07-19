@@ -53,6 +53,7 @@ public class Mobile : Tool
 
        override public void Init()
     {
+        
         task = "获得手机";
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         

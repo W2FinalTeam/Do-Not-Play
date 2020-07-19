@@ -14,7 +14,11 @@ public abstract class Tool : BaseItem, ITool
 
     public override  void Init()
     {
-        myTransform = this.transform;
+        
+        GameObject o = GameObject.Find(transform.name + "存放点");
+     
+        if (o != null)
+            transform.position = o.transform.position;
     }
     public override void Destory()
     {

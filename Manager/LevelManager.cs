@@ -14,20 +14,20 @@ public class LevelManager : BaseManager<LevelManager>
     /// <summary>
     /// 关卡任务预置
     /// </summary>
-    List<List<String>> TaskFeb = new List <List<String>>();
+    List<List<String>> TaskFeb = new List<List<String>>();
     /// <summary>
     /// 关卡道具预置
     /// </summary>
-    List< List<String>> ToolFeb = new List<List<String>>();
+    List<List<String>> ToolFeb = new List<List<String>>();
 
     /// <summary>
     /// 当前关卡任务完成状态
     /// </summary>
-    Dictionary<string, bool> task = new Dictionary<string, bool>();
-    /// <summary>
-    /// 当前关卡道具
-    /// </summary>
-    List<String> Tool = new List<String>();
+    public Dictionary<string, bool> task {private  get;  set; } = new Dictionary<string, bool>(); 
+/// <summary>
+/// 当前关卡道具
+/// </summary>
+List<String> Tool = new List<String>();
     // Start is called before the first frame update
     /// <summary>
     /// 任务检测
@@ -84,15 +84,14 @@ public class LevelManager : BaseManager<LevelManager>
         foreach (String tool in Tools)
         {
             this.Tool.Add(tool);
+
+            //创建道具
+            GameObject temp =GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/" + tool));
+            //调用道具Init
+            temp.GetComponent<Tool>().Init();
             Debug.Log(tool);
         }
-        ///创建道具
-        //TODO
-        ///调用道具的Init
-        foreach (GameObject o in GameObject.FindGameObjectsWithTag("Tool"))
-        {
-            o.GetComponent<Tool>().Init();
-        }
+    
     }
     /// <summary>
     /// 获得当前任务

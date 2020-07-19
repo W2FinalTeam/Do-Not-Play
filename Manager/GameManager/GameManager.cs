@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager;
     public LevelManager LevelManager;
     public GameObject player;
+    public GameObject mother;
     bool firsttime = true;
     private void Awake()
     {
@@ -44,12 +46,60 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="first">第一次执行</param>
     /// <param name="level"></param>
-
+    
     public void LoadLevel(int level)
     {
+        DestroyAllTool();
         InitTab(firsttime);
         
         LevelManager.Init(level);
+    }
+    /// <summary>
+    /// 存档
+    /// </summary>
+    public  void Save()
+    {
+        SaveData save=new SaveData();
+        save.SavetoFile("save1");
+    }
+    /// <summary>
+    /// 加载存档
+    /// </summary>
+    public void Load()
+    {
+        SaveData save = new SaveData();
+        save.LoadSaveFile("save1");
+        LoadLevel(save.level);
+
+        GetPlayer();
+        player.transform.position = save.PlayerLocation.GetPosition();
+        player.transform.rotation = save.PlayerLocation.GetRotation();
+        mother.transform.position = save.NPCLocation.GetPosition();
+        mother.transform.rotation = save.NPCLocation.GetRotation();
+      
+        values = save.values;
+        LevelManager.task = save.task;
+        foreach(var item in save.Tools)
+        {
+            
+            GameObject o = GameObject.Find(item.Key + "(Clone)");
+            if (o != null)
+            {
+        
+                o.transform.position = save.ToolLocation[item.Key + "(Clone)"].GetPosition();
+                o.transform.rotation = save.ToolLocation[item.Key + "(Clone)"].GetRotation();
+               
+            }
+        
+           
+            
+            if (item.Value)
+            {
+                Tools[item.Key] = o;
+            }
+        }
+        
+
     }
 
 
@@ -81,7 +131,26 @@ public class GameManager : MonoBehaviour
             UIManager.UImain["Tab"].UI.GetComponent<TabUI>().Updatevalues(values, Tools);
         }
     }
-  
+    /// <summary>
+    /// 销毁所有道具
+    /// </summary>
+    /// <returns></returns>
+    void DestroyAllTool()
+    {
+        GameObject[] tools = GameObject.FindGameObjectsWithTag("Tool");
+        foreach (var item in tools)
+        {
+            item.GetComponent<Tool>().Destory();
+        }
+    }
+    public Dictionary<string, int> GetValuesList()
+    {
+        return values;
+    }
+    public Dictionary<string,GameObject> GetToolList()
+    {
+        return Tools;
+    }
     /// <summary>
     /// 设置道具获取状态
     /// </summary>
@@ -122,6 +191,7 @@ public class GameManager : MonoBehaviour
       bool GetPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        mother = GameObject.FindGameObjectWithTag("Mother");
         return player != null;
     }
 
@@ -139,10 +209,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Restart();
+            Save();
+            
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+           Load();
+
+        }
+
     }
 }
 

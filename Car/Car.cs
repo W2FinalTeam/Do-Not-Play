@@ -51,7 +51,7 @@ public class Car : Tool
         player = GameObject.FindGameObjectWithTag("Player");
         Camera_Car = GameObject.Find("遥控汽车/Camera_Car");
         Camera_main = GameObject.Find("Player/Camera_Main");
-        Camera_Car.GetComponent<Camera>().enabled = false;
+       Camera_Car.GetComponent<Camera>().enabled = false;
     }
     private void Start()
     {
